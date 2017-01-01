@@ -29,24 +29,24 @@ Will be heavily influenced by the [LA Times' Django for data analysis](https://g
 
 1. In a terminal window, enter
 
-''' bash
+```bash
 redis-server
-'''
+```
 
 2. In a separate terminal window, enter
 
-''' bash
+```bash
 workon soupMix
 cd scrapersuite
 celery -A scrapersuite worker -l info
-'''
+```
 
 3. In a separate terminal window, enter
 
-''' bash
+```bash
 workon soupMix
 python manage.py runserver
-'''
+```
 
 ### Built using
 
