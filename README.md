@@ -1,6 +1,4 @@
-:stew::stew::stew:
-# SoupMix
-:stew::stew::stew:
+# :stew: SoupMix :stew:
 
 SoupMix is a platform to allow news organizations or anybody else to scrape sites to obtain data with a few simple steps. Really a work in progress.
 
@@ -31,13 +29,13 @@ Will be heavily influenced by the [LA Times' Django for data analysis](https://g
 
 1. In a terminal window, enter
 
-'''bash
+''' bash
 redis-server
 '''
 
 2. In a separate terminal window, enter
 
-'''bash
+''' bash
 workon soupMix
 cd scrapersuite
 celery -A scrapersuite worker -l info
@@ -45,7 +43,7 @@ celery -A scrapersuite worker -l info
 
 3. In a separate terminal window, enter
 
-'''bash
+''' bash
 workon soupMix
 python manage.py runserver
 '''
