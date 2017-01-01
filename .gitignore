@@ -1,0 +1,13 @@
+#Ignore these directories
+#Files in keys and data also ignored, but file structure maintained
+migrations/
+
+#ignore these files
+.DS_Store
+*.sqlite3
+*.pyc
+celerybeat-schedule.db
+celerybeat.pid
+*.csv
+test.log
+notes.md

@@ -1,0 +1,85 @@
+<html>
+	<head>
+		<title>soupMix console</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="/static/codemirror-5.9/codemirror.js"></script>
+		<link rel="stylesheet" href="/static/codemirror-5.9/codemirror.css">
+		<link rel="stylesheet" href="/static/codemirror-5.9/theme/monokai.css">
+		<link rel="stylesheet" href="/static/main-css/code-render.css">
+		<script src="/static/codemirror-5.9/mode/python/python.js"></script>
+		<style>
+			button{
+				display:none;
+				margin: 0 auto;
+				text-transform: uppercase;
+				font: bold 12px arial, sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="main">
+			<h1 class="center-text">&#127858; soupMix console &#127858;</h1>
+			<h4>CODE</h4>
+			<div>
+				<code class="code">{{soup_code|safe}}</code>
+			</div>
+			<h4>OUTPUT</h4>
+			<div>
+				<pre class="output" id="{{task_id}}">{{soup_output|safe}}</pre>
+				<button id="download">Download your data</button>
+			</div>
+		</div>
+	</body>
+	<script>
+		var done = false;
+		//initialize codemirror for index page
+		$('.code').each(function() {
+			var $this = $(this),
+				$code = $this.text();
+			$this.empty();
+			var myCodeMirror = CodeMirror(this,{
+				value: $code,
+				lineNumbers: true,
+				mode: 'python',
+				theme: 'monokai',
+				readOnly: true,
+			});
+		});
+		//get the task id
+		var task_id = $('.output').attr('id');
+		//debugging
+		console.log('loading task ' + task_id);
+		//ajax for loading output
+		$.ajax({
+			url: './ajax/?id=' + task_id,
+			success: function (data) {
+				$('.output').html(data);
+				done = true;
+				$('#download').css('display','block');
+				$('#download').click(function(){
+					loadcsv();
+				})
+			}
+		});
+		function updateFragment(){
+			if (!done){
+				$.ajax({
+					url: './get_frag',
+					success: function (data) {
+						$('.output').html(data);
+					}
+				});
+				setTimeout(updateFragment,1000);
+			}
+		}
+		function loadcsv(){
+			$.ajax({
+				url: './export_csv',
+				success: function (data) {
+					console.log('eventually, do something');
+				}
+			});
+		}
+		updateFragment();
+	</script>
+</html>
